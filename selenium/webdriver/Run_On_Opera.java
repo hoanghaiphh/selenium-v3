@@ -19,6 +19,10 @@ public class Run_On_Opera {
     public void beforeClass() {
         if (osName.contains("Window")) {
             System.setProperty("webdriver.opera.driver", projectPath + "\\browserDrivers\\operadriver.exe");
+        } else if (osName.contains("Linux")) {
+            System.setProperty("webdriver.opera.driver", projectPath + "/browserDrivers/operadriver_linux");
+        } else if (osName.contains("Mac")) {
+            System.setProperty("webdriver.opera.driver", projectPath + "/browserDrivers/operadriver_mac");
         }
         driver = new OperaDriver();
         driver.manage().window().maximize();
