@@ -1,7 +1,9 @@
 package webdriver;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -24,9 +26,25 @@ public class Run_On_Opera {
     }
 
     @Test
-    public void TC_01_() throws InterruptedException {
-        driver.get("https://www.facebook.com/");
-        Thread.sleep(3000);
+    public void TC_01() throws InterruptedException {
+        driver.get("https://ngoaingu24h.vn/");
+
+        driver.findElement(By.cssSelector("button.login_")).click();
+        Thread.sleep(1000);
+
+        Assert.assertTrue(driver.findElement(By.cssSelector("div#modal-login-v1[style] div.modal-content")).isDisplayed());
+
+        driver.findElement(By.cssSelector("div#modal-login-v1[style] input#account-input")).sendKeys("automation fc");
+        driver.findElement(By.cssSelector("div#modal-login-v1[style] input#password-input")).sendKeys("automation fc");
+        driver.findElement(By.cssSelector("div#modal-login-v1[style] button[data-text='Đăng nhập']")).click();
+        Thread.sleep(1000);
+
+        Assert.assertEquals(driver.findElement(By.cssSelector("div#modal-login-v1[style] div.error-login-panel")).getText(), "Tài khoản không tồn tại!");
+
+        driver.findElement(By.cssSelector("div#modal-login-v1[style] button.close")).click();
+        Thread.sleep(1000);
+
+        Assert.assertFalse(driver.findElement(By.cssSelector("div#modal-login-v1[style] div.modal-content")).isDisplayed());
     }
 
     @AfterClass
